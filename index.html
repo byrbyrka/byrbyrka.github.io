@@ -1,37 +1,78 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>byrbyrka — био</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>byrbyrka — Главная</title>
+  <style>
+    /* Базовый стиль страницы */
+    :root{ --tg:#0088cc; --tg-dark: #0077b3; --bg:#f7f7f8; --text:#111; }
+    html,body{ height:100%; margin:0; font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background:var(--bg); color:var(--text); }
+    .site{ max-width:1100px; margin:32px auto; padding:28px; background:#fff; border-radius:12px; box-shadow:0 6px 28px rgba(17,17,17,0.06); }
+
+    /* Кнопка "Заказать сайт" — вариаnт 1 */
+    .order-btn{
+      display:inline-block;
+      background: linear-gradient(180deg, var(--tg), var(--tg-dark));
+      color:#fff;
+      text-decoration:none;
+      padding:12px 18px;
+      border-radius:8px;
+      font-weight:700;
+      letter-spacing:0.2px;
+      transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0,136,204,0.12);
+    }
+    .order-btn:active{ transform: translateY(1px); }
+    .order-btn:hover{ transform: translateY(-4px); box-shadow: 0 14px 34px rgba(0,136,204,0.14); }
+
+    /* Вариант кнопки в блоке хедера */
+    header{ display:flex; align-items:center; justify-content:space-between; gap:16px; }
+    .brand{ font-size:20px; font-weight:800; color:var(--tg-dark); }
+    .lead{ margin:18px 0 28px 0; color:#333; }
+
+    /* Небольшая отзывчивость */
+    @media (max-width:640px){
+      .site{ margin:16px; padding:18px; }
+      .order-btn{ padding:10px 14px; }
+    }
+  </style>
 </head>
 <body>
-  <main class="bio-container">
+  <div class="site">
     <header>
-      <h1 class="pixel">byrbyrka</h1>
+      <div class="brand">byrbyrka</div>
+      <nav>
+        <!-- Кнопка добавлена здесь -->
+        <a href="https://t.me/byrbyrka"
+           class="order-btn"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Перейти в Telegram, чтобы заказать сайт">
+          Заказать сайт
+        </a>
+      </nav>
     </header>
-    <section class="bio-section pixel">
-      <p>Hello i'm byrbyrka. <span class="spoiler" onclick="this.classList.toggle('revealed')"><span class="spoiler-label">click me</span><span class="spoiler-content">ну купите сайт у меня пажэ</span></span>.</p>
-    </section>
-    <section class="socials-section pixel">
-      <h2>Соцсети</h2>
-      <ul class="socials-list">
-        <li><a href="https://t.me/bio_byrbyrka" target="_blank">Telegram</a></li>
-        <li><a href="https://github.com/byrbyrka" target="_blank">GitHub</a></li>
-        <li><a href="https://x.com/byrbyrk0" target="_blank">Twitter/X</a></li>
-        <li><a href="https://discord.com/users/byrbyrka" target="_blank">Discord</a></li>
-      </ul>
-    </section>
-    <section class="pixel">
-      <h2>Музыка</h2>
-      <div>
-        <iframe frameborder="0" allow="clipboard-write" style="border:none;width:100%;height:556px;" src="https://music.yandex.ru/iframe/playlist/stepadavydav5/3">Listen to <a href="https://music.yandex.ru/playlists/lk.8cafc7a0-4709-4a68-b622-4422dd685882?utm_source=web&utm_medium=copy_link">My Favorites</a> — <a href="https://music.yandex.ru/users/stepadavydav5">byrbyrka</a> on Yandex Music</iframe>
-      </div>
-    </section>
-    <footer class="pixel">
-      <p></p>
-    </footer>
-  </main>
+
+    <main>
+      <h1>Привет — я byrbyrka</h1>
+      <p class="lead">Если нужно сделать сайт — нажмите кнопку "Заказать сайт" и напишите мне в Telegram. Отвечаю быстро и оформляю заказ по договору.</p>
+
+      <section>
+        <h2>Услуги</h2>
+        <ul>
+          <li>Landing / Лендинг</li>
+          <li>Корпоративный сайт</li>
+          <li>Интернет-магазин</li>
+          <li>Поддержка и сопровождение</li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer style="margin-top:28px; font-size:13px; color:#666;">© byrbyrka — Если кнопка не открывается, используйте https://t.me/byrbyrka</footer>
+  </div>
 </body>
 </html>
