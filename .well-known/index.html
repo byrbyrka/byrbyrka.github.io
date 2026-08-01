@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>oaxat / byrbyrka / chind</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;800;900&family=Inter:wght@400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --primary: #D8BBFF;
+    --bg: #0A0810;
+    --on-surface: #F1ECF4;
+    --on-surface-dim: #8A8394;
+    --outline: #2A2532;
+
+    --display: 'Unbounded', sans-serif;
+    --body-font: 'Inter', sans-serif;
+    --mono: 'Roboto Mono', monospace;
+  }
+
+  *{ box-sizing:border-box; }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--on-surface);
+    font-family: var(--body-font);
+    -webkit-font-smoothing: antialiased;
+    overflow-x:hidden;
+  }
+
+  ::selection{ background: var(--primary); color: #1A0B33; }
+  a{ color:inherit; }
+
+  /* ---------- ambient blob ---------- */
+  .glow{
+    position: fixed; inset:0; z-index:0; pointer-events:none;
+    background:
+      radial-gradient(560px 560px at var(--gx,30%) var(--gy,20%), rgba(216,187,255,0.20), transparent 70%);
+    filter: blur(10px);
+    animation: drift 16s ease-in-out infinite;
+  }
+  @keyframes drift{
+    0%,100%{ --gx:26%; --gy:18%; }
+    33%{ --gx:70%; --gy:30%; }
+    66%{ --gx:45%; --gy:70%; }
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position: relative; z-index:1;
+    min-height: 92vh;
+    display:flex; flex-direction:column; align-items:flex-start; justify-content:center;
+    padding: 8vh clamp(24px, 7vw, 96px);
+  }
+
+  .name-stage{
+    position: relative;
+    width: 100%;
+    height: clamp(120px, 20vw, 220px);
+    display:flex; align-items:center;
+  }
+  .name{
+    position:absolute; left:0; top:50%;
+    transform: translateY(-50%);
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(52px, 13vw, 168px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+    color: var(--on-surface);
+    opacity: 0;
+    animation: cycle 9s infinite;
+  }
+  .name:nth-child(1){ animation-delay: 0s; }
+  .name:nth-child(2){ animation-delay: 3s; }
+  .name:nth-child(3){ animation-delay: 6s; }
+
+  @keyframes cycle{
+    0%    { opacity: 0; filter: blur(6px); }
+    4%    { opacity: 1; filter: blur(0); }
+    30%   { opacity: 1; filter: blur(0); }
+    34%   { opacity: 0; filter: blur(6px); }
+    100%  { opacity: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .name{ animation:none; opacity:0; }
+    .name:first-child{ opacity:1; position:relative; }
+    .glow{ animation:none; }
+  }
+
+  .sub{
+    margin-top: 28px;
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    color: var(--on-surface-dim);
+    display:flex; align-items:center; gap:12px;
+    text-decoration:none;
+    transition: color .25s ease;
+  }
+  .sub .line{ width: 28px; height:1px; background: var(--outline); transition: background .25s ease, width .25s ease; }
+  .sub-link:hover{ color: var(--primary); }
+  .sub-link:hover .line{ background: var(--primary); width: 40px; }
+
+  /* ---------- links ---------- */
+  .links{
+    position: relative; z-index:1;
+    border-top: 1px solid var(--outline);
+    padding: 0 clamp(24px, 7vw, 96px);
+  }
+  .link-row{
+    display:flex; align-items:baseline; gap: clamp(16px, 4vw, 40px);
+    padding: clamp(20px, 3.6vw, 34px) 0;
+    border-bottom: 1px solid var(--outline);
+    position: relative;
+    transition: padding-left .3s cubic-bezier(.2,.8,.2,1);
+  }
+  .link-row:hover{ padding-left: 14px; }
+
+  .link-idx{
+    font-family: var(--mono); font-size: 13px; color: var(--on-surface-dim);
+    width: 28px; flex-shrink:0;
+  }
+  .link-name{
+    font-family: var(--display); font-weight: 700;
+    font-size: clamp(24px, 5vw, 44px);
+    letter-spacing: -0.01em;
+    flex: 1;
+    transition: color .25s ease;
+  }
+  .link-row:hover .link-name{ color: var(--primary); }
+
+  .link-meta{
+    font-family: var(--mono); font-size: 12.5px; color: var(--on-surface-dim);
+    text-align:right; white-space:nowrap;
+    display:none;
+  }
+  @media (min-width: 640px){ .link-meta{ display:block; } }
+
+  .link-arrow{
+    color: var(--on-surface-dim); flex-shrink:0;
+    transform: rotate(-45deg);
+    transition: transform .25s cubic-bezier(.2,.8,.2,1), color .25s ease;
+  }
+  .link-row:hover .link-arrow{ transform: rotate(0deg); color: var(--primary); }
+
+  footer{
+    position: relative; z-index:1;
+    padding: 28px clamp(24px, 7vw, 96px);
+    font-family: var(--mono); font-size: 12px; color: var(--on-surface-dim);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+</style>
+</head>
+<body>
+
+  <div class="glow"></div>
+
+  <section class="hero">
+    <div class="name-stage">
+      <span class="name">oaxat</span>
+      <span class="name">byrbyrka</span>
+      <span class="name">chind</span>
+    </div>
+    <a class="sub sub-link" href="https://bezlista.github.io" target="_blank" rel="noopener">
+      <span class="line"></span> bezlista.github.io — обход белых списков
+    </a>
+  </section>
+
+  <section class="links">
+    <a class="link-row" href="https://github.com/byrbyrka" target="_blank" rel="noopener">
+      <span class="link-idx">01</span>
+      <span class="link-name">GitHub</span>
+      <span class="link-meta">github.com/byrbyrka</span>
+      <svg class="link-arrow" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 18 18 6M9 6h9v9"/></svg>
+    </a>
+    <a class="link-row" href="https://open.spotify.com/playlist/7LX8jG79V7si4YKRGPaXJt?si=0d1d196292224a45" target="_blank" rel="noopener">
+      <span class="link-idx">02</span>
+      <span class="link-name">Spotify</span>
+      <span class="link-meta">плейлист</span>
+      <svg class="link-arrow" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 18 18 6M9 6h9v9"/></svg>
+    </a>
+    <a class="link-row" href="https://oaxat.t.me" target="_blank" rel="noopener">
+      <span class="link-idx">03</span>
+      <span class="link-name">Telegram</span>
+      <span class="link-meta">oaxat.t.me</span>
+      <svg class="link-arrow" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 18 18 6M9 6h9v9"/></svg>
+    </a>
+    <a class="link-row" href="https://osu.ppy.sh/users/37280594" target="_blank" rel="noopener">
+      <span class="link-idx">04</span>
+      <span class="link-name">osu!</span>
+      <span class="link-meta">byrbyrka</span>
+      <svg class="link-arrow" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 18 18 6M9 6h9v9"/></svg>
+    </a>
+  </section>
+
+  <footer>
+    <span>oaxat · byrbyrka · chind</span>
+    <span>2026</span>
+  </footer>
+
+</body>
+</html>
